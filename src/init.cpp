@@ -1935,23 +1935,7 @@ bool AppInitMain(NodeContext& node)
         if(!CheckSpecs(errorMessage)){
             return InitError(errorMessage);
         }
-        std::array<char, 128> buffer;
-        std::string result;
-        std::unique_ptr<FILE, decltype(&pclose)> pipe(popen("pidof syscoind | wc -w", "r"), pclose);
-        if (!pipe) {
-           return InitError("popen() failed!");
-        }
-        while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
-            result += buffer.data();
-        }
-        int resultInt = 0;
-        result.erase(std::remove(result.begin(), result.end(), '\n'), result.end());
-        if(!result.empty() && !ParseInt32(result, &resultInt))
-            return InitError("Could not parse result from pidof");
-
-        if(resultInt != 1)   
-            return InitError(_("Ensure you are running this masternode in a Unix OS and that only on syscoind is running...").translated); 
-                         
+                           
         std::string strMasterNodePrivKey = gArgs.GetArg("-masternodeprivkey", "");
         if(!strMasterNodePrivKey.empty()) {
             if(!CMessageSigner::GetKeysFromSecret(strMasterNodePrivKey, activeMasternode.keyMasternode, activeMasternode.pubKeyMasternode))
