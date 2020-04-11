@@ -69,24 +69,24 @@ Check out the source code in the following directory hierarchy.
 
 ### Write the release notes
 
-Open a draft of the release notes for collaborative editing at https://github.com/bitcoin-core/bitcoin-devwiki/wiki.
+Open a draft of the release notes for collaborative editing at https://github.com/syscoin-core/syscoin-devwiki/wiki.
 
 For the period during which the notes are being edited on the wiki, the version on the branch should be wiped and replaced with a link to the wiki which should be used for all announcements until `-final`.
 
 Write the release notes. `git shortlog` helps a lot, for example:
 
-    git shortlog --no-merges v(current version, e.g. 0.19.2)..v(new version, e.g. 0.20.0)
+    git shortlog --no-merges v(current version, e.g. 0.19.2)..v(new version, e.g. 4.1.3)
 
 (or ping @wumpus on IRC, he has specific tooling to generate the list of merged pulls
 and sort them into categories based on labels).
 
 Generate list of authors:
 
-    git log --format='- %aN' v(current version, e.g. 0.20.0)..v(new version, e.g. 0.20.1) | sort -fiu
+    git log --format='- %aN' v(current version, e.g. 4.1.3)..v(new version, e.g. 4.1.3) | sort -fiu
 
 Tag the version (or release candidate) in git:
 
-    git tag -s v(new version, e.g. 0.20.0)
+    git tag -s v(new version, e.g. 4.1.3)
 
 ### Setup and perform Gitian builds
 
@@ -96,7 +96,7 @@ Setup Gitian descriptors:
 
     pushd ./syscoin
     export SIGNER="(your Gitian key, ie bluematt, sipa, etc)"
-    export VERSION=(new version, e.g. 0.20.0)
+    export VERSION=(new version, e.g. 4.1.3)
     git fetch
     git checkout v${VERSION}
     popd
@@ -121,7 +121,7 @@ Ensure gitian-builder is up-to-date:
     echo '5a60e0a4b3e0b4d655317b2f12a810211c50242138322b16e7e01c6fbb89d92f inputs/osslsigncode-2.0.tar.gz' | sha256sum -c
     popd
 
-Create the macOS SDK tarball, see the [macOS build instructions](build-osx.md#deterministic-macos-dmg-notes) for details, and copy it into the inputs directory.
+Create the macOS SDK tarball, see the [macdeploy instructions](/contrib/macdeploy/README.md#deterministic-macos-dmg-notes) for details, and copy it into the inputs directory.
 
 ### Optional: Seed the Gitian sources cache and offline git repositories
 
@@ -268,7 +268,6 @@ The list of files should be:
 ```
 syscoin-${VERSION}-aarch64-linux-gnu.tar.gz
 syscoin-${VERSION}-arm-linux-gnueabihf.tar.gz
-syscoin-${VERSION}-i686-pc-linux-gnu.tar.gz
 syscoin-${VERSION}-riscv64-linux-gnu.tar.gz
 syscoin-${VERSION}-x86_64-linux-gnu.tar.gz
 syscoin-${VERSION}-osx64.tar.gz
@@ -328,8 +327,6 @@ syscoin.org (see below for syscoin.org update instructions).
   - syscoincore.org RPC documentation update
 
   - Update packaging repo
-
-      - Notify sidhujag so that he can start building [the PPAs](https://launchpad.net/~syscoin/+archive/ubuntu/syscoin)
 
       - Push the flatpak to flathub, e.g. https://github.com/flathub/org.syscoincore.syscoin-qt/pull/2
 

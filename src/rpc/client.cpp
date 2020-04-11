@@ -27,8 +27,7 @@ public:
 static const CRPCConvertParam vRPCConvertParams[] =
 {
     { "setmocktime", 0, "timestamp" },
-    { "generate", 0, "nblocks" },
-    { "generate", 1, "maxtries" },
+    { "mockscheduler", 0, "delta_time" },
     { "utxoupdatepsbt", 1, "descriptors" },
     { "generatetoaddress", 0, "nblocks" },
     { "generatetoaddress", 2, "maxtries" },
@@ -227,8 +226,6 @@ static const CRPCConvertParam vRPCConvertParams[] =
     { "tpstestsetenabled", 0, "enabled" },
     { "syscoinsetethstatus", 1, "highestBlock" },
     { "syscoinsetethheaders", 0, "headers" },
-    { "listassetindex", 0, "page" },
-    { "listassetindex", 1, "options" },
 };
 // clang-format on
 
