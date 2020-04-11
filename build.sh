@@ -5,5 +5,5 @@ make
 cd src
 strip syscoind syscoin-cli syscoin-tx syscoin-wallet
 cd qt
-strip xax-qt
+strip syscoin-qt
 
